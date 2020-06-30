@@ -13,12 +13,6 @@ public final class Main {
         }
         p.place("48+", 0, 0, 'H', g);
         p.place("48+", 0, 5, 'H', g);
-        p.place("48+", 2, 0, 'H', g);
-        p.place("48+", 2, 5, 'H', g);
-        p.place("48+", 4, 0, 'H', g);
-        p.place("48+", 4, 5, 'H', g);
-        p.place("48+", 6, 0, 'H', g);
-        p.place("48+", 6, 5, 'H', g);
         Terminal.printLine("");
         for (int i:p.getBag()) {
             Terminal.printLine(i);

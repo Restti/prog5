@@ -63,13 +63,13 @@ public class Player {
             for (int i = 0; i < pieces.length(); i++) {
                 // checks if enough pieces are in the bag of the player.
                 if (Character.toString(pieces.charAt(i)).matches("[0-9]")) {
-                    this.bag[Integer.parseInt(Character.toString(pieces.charAt(i)))]++;
+                    pcs[Integer.parseInt(Character.toString(pieces.charAt(i)))]++;
                 } else if (pieces.charAt(i) == '-') {
-                    this.bag[MINUS]++;
+                    pcs[MINUS]++;
                 } else if (pieces.charAt(i) == '+') {
-                    this.bag[PLUS]++;
+                    pcs[PLUS]++;
                 } else if (pieces.charAt(i) == '*') {
-                    this.bag[TIMES]++;
+                    pcs[TIMES]++;
                 }
             }
             for (int i = 0; i < PIECES; i++) {
@@ -92,9 +92,9 @@ public class Player {
             } else {
                 hor = false;
             }
-            //TODO currently does not remove pieces from bag.
             if (board.gatedAdd(hor, pieces, row, col, this)) {
                 for (int i = 0; i < pieces.length(); i++) {
+                    Terminal.printLine("for-Schleife erreicht.");
                     if (Character.toString(pieces.charAt(i)).matches("[0-9]")) {
                         this.bag[Integer.parseInt(Character.toString(pieces.charAt(i)))]--;
                     } else if (pieces.charAt(i) == '-') {
