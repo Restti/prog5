@@ -10,11 +10,11 @@ public class ArihmUnit {
      * @param input
      * @return wordVal
      */
-    public int calcVal(String input) throws BoardCurruptionException {
+    public static int calcVal(String input) throws BoardCurruptionException {
         String arithExpr = input;
         int secOp;
         int wordVal;
-        OpStack op = new OpStack(0);
+        OpStack op = new OpStack(0 );
         for (int i = 0; i < arithExpr.length(); i++) {
             if (op.size() > 2) {
                 // if to many numbers for calculation.

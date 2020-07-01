@@ -1,5 +1,7 @@
 package edu.kit.informatik;
 
+import java.util.ArrayList;
+
 /**
  * this class holds the functionality of the game board.
  */
@@ -32,17 +34,18 @@ public class GameBoard {
 
     /**
      * adds Pieces to the board, only if the squares, they are added to are empty and no illegal words are formed.
+     *
      * @param hor
      * @param pieces
      * @param row
      * @param col
      * @param pl
-     * @return  success status.
+     * @return success status.
      * @throws IllegalMoveException
      */
     public boolean gatedAdd(boolean hor, String pieces, int row, int col, Player pl) throws IllegalMoveException {
         String arCheck = "";
-        boolean success;
+        boolean success = false;
         if (hor) {
             for (int i = 0; i < pieces.length(); i++) {
                 if (board[row][col + i] != null) {
@@ -63,8 +66,7 @@ public class GameBoard {
                         for (int i = 0; i < pieces.length(); i++) {
                             board[row][col + i] = null;
                         }
-                        throw new IllegalMoveException("the pieces you are trying to place"
-                                + " would result in an illegal word.");
+                        success = false;
                     }
                 }
             }
@@ -80,8 +82,7 @@ public class GameBoard {
                             for (int k = 0; k < pieces.length(); k++) {
                                 board[row][col + k] = null;
                             }
-                            throw new IllegalMoveException("the pieces you are trying to place"
-                                    + " would result in an illegal word.");
+                            success = false;
                         }
                     }
                 }
@@ -105,8 +106,7 @@ public class GameBoard {
                         for (int j = 0; j < pieces.length(); j++) {
                             board[row + j][col] = null;
                         }
-                        throw new IllegalMoveException("the pieces you are trying to place"
-                                + " would result in an illegal word.");
+                        success = false;
                     }
                 }
             }
@@ -122,21 +122,105 @@ public class GameBoard {
                             for (int j = 0; j < pieces.length(); j++) {
                                 board[row + j][col] = null;
                             }
-                            throw new IllegalMoveException("the pieces you are trying to place"
-                                    + " would result in an illegal word.");
+                            success = false;
                         }
                     }
                 }
             }
         }
+        if (!success) {
+            throw new IllegalMoveException("the pieces you are trying to place"
+                    + " would result in an illegal word.");
+        }
         if (pieces.length() == 1) {
             // checks if the newly placed pieces share edges with other pieces.
-            if (board[row - 1][col] == null && board[row + 1][col] == null
-                    && board[row][col - 1] == null && board[row][col + 1] == null) {
-                board[row][col] = null;
-                throw new IllegalMoveException("no piece can stand alone.");
+            if (row == 0 && col == 0) {
+                if (board[row + 1][col] == null && board[row][col + 1] == null) {
+                    board[row][col] = null;
+                    success = false;
+                }
+            } else if (row == 9 && col == 9) {
+                if (board[row - 1][col] == null && board[row][col - 1] == null) {
+                    board[row][col] = null;
+                    success = false;
+                }
+            } else if (row == 0 && col == 9) {
+                if (board[row + 1][col] == null && board[row][col - 1] == null) {
+                    board[row][col] = null;
+                    success = false;
+                }
+            } else if (row == 9 && col == 0) {
+                if (board[row - 1][col] == null && board[row][col + 1] == null) {
+                    board[row][col] = null;
+                    success = false;
+                }
+            } else {
+                if (board[row - 1][col] == null && board[row + 1][col] == null
+                        && board[row][col - 1] == null && board[row][col + 1] == null) {
+                    board[row][col] = null;
+                    success = false;
+                }
             }
         }
+        if (!success) {
+            throw new IllegalMoveException("no piece can stand alone.");
+        }
         return true;
+    }
+
+    public Scoreing score(){
+        ArrayList<ArrayList<String>> words = new ArrayList<ArrayList<String>>();
+        ArrayList<Player> players = new ArrayList<Player>();
+        String word = "";
+        for (int i = 0; i < GameBoard.getSIZE(); i++){
+            for (int j = 0; j < GameBoard.getSIZE(); j++){
+;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return null;
     }
 }

@@ -11,6 +11,7 @@ public class Player {
 
     private int[] bag;
     private String name;
+    private int score;
 
     /**
      * this class is used to read the command line arguments and memorizing the amount of each piece in the players bag.
@@ -114,5 +115,13 @@ public class Player {
 
     public int[] getBag() {
         return bag;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
