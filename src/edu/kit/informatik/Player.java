@@ -20,7 +20,7 @@ public class Player {
      * @param inBag
      * @throws MiscellaneousPieceException
      */
-    public Player(String inBag, String name) throws MiscellaneousPieceException {
+    public Player(String inBag, int num) throws MiscellaneousPieceException {
         if (inBag.matches("[0-9\\+\\-\\*]*")) {
             // checks for incorect characters in the input string.
             this.bag = new int[PIECES];
@@ -39,7 +39,7 @@ public class Player {
         } else {
             throw new MiscellaneousPieceException("unknown piece found in the bag.");
         }
-        this.name = name;
+        this.name = "p" + num;
     }
 
     /**
@@ -95,7 +95,6 @@ public class Player {
             }
             if (board.gatedAdd(hor, pieces, row, col, this)) {
                 for (int i = 0; i < pieces.length(); i++) {
-                    Terminal.printLine("for-Schleife erreicht.");
                     if (Character.toString(pieces.charAt(i)).matches("[0-9]")) {
                         this.bag[Integer.parseInt(Character.toString(pieces.charAt(i)))]--;
                     } else if (pieces.charAt(i) == '-') {
