@@ -204,21 +204,12 @@ public class GameBoard {
                     owner.get(players.indexOf(board[i][j].getOwner())).addOne();
                     Terminal.printLine("p1 has contributed " + owner.get(0).getNum() + " pieces.");
                     Terminal.printLine("p2 has contributed " + owner.get(1).getNum() + " pieces.");
+                    if(j == GameBoard.getSIZE() - 1){
+                        word = assignWordHor(words, players, owner, word, own);
+                    }
                 } else {
                     // checks if word is according to specs and determines ownership. TODO: ERROR always determines p1 (k = 0) as owner.
-                    if (word.length() > 2) {
-                        for (int k = 0; k < owner.size(); k++) {
-                            if (own.getPcsCnt() < owner.get(k).getNum()) {
-                                own.setOwnr(players.get(k));
-                                own.setPcsCnt(owner.get(k).getNum());
-                            }
-                        }
-                        words.get(players.indexOf(own.getOwnr())).add(word);
-                        word = "";
-                    }
-                    for (Int pl : owner) {
-                        pl.setNum(0);
-                    }
+                    word = assignWordHor(words, players, owner, word, own);
                     Terminal.printLine("p1's contributed pieces has been set to " + owner.get(0).getNum() + " for next word.");
                     Terminal.printLine("p2's contributed pieces has been set to " + owner.get(1).getNum() + " for next word.");
                 }
@@ -230,25 +221,52 @@ public class GameBoard {
                 if (board[i][j] != null) {
                     word = word + board[i][j].getVal();
                     owner.get(players.indexOf(board[i][j].getOwner())).addOne();
-                } else {
-                    if (!word.equals("")) {
-                        for (int k = 0; k < owner.size(); k++) {
-                            if (owner.get(k).getNum() > own.getPcsCnt()) {
-                                own.setPcsCnt(owner.get(k).getNum());
-                                own.setOwnr(players.get(k));
-                            }
-                        }
-                        if (word.length() > 2) {
-                            words.get(players.indexOf(own.getOwnr())).add(word);
-                        }
-                        word = "";
-                        for (Int pl : owner) {
-                            pl.setNum(0);
-                        }
+                    if(i == GameBoard.getSIZE() - 1){
+                        word = assignWordVert(words, players, owner, word, own);
                     }
+                } else {
+                    word = assignWordVert(words, players, owner, word, own);
                 }
             }
         }
         return new Scoreing(words, players);
+    }
+
+    private String assignWordHor(ArrayList<ArrayList<String>> words, ArrayList<Player> players,
+                                 ArrayList<Int> owner, String word, WordOwner own) {
+        if (word.length() > 2) {
+            for (int k = 0; k < owner.size(); k++) {
+                if (own.getPcsCnt() <= owner.get(k).getNum()) {
+                    own.setOwnr(players.get(k));
+                    own.setPcsCnt(owner.get(k).getNum());
+                }
+            }
+            words.get(players.indexOf(own.getOwnr())).add(word);
+            word = "";
+        }
+        for (Int pl : owner) {
+            pl.setNum(0);
+        }
+        return word;
+    }
+
+    private String assignWordVert(ArrayList<ArrayList<String>> words, ArrayList<Player> players,
+                                  ArrayList<Int> owner, String word, WordOwner own) {
+        if (!word.equals("")) {
+            for (int k = 0; k < owner.size(); k++) {
+                if (owner.get(k).getNum() >= own.getPcsCnt()) {
+                    own.setPcsCnt(owner.get(k).getNum());
+                    own.setOwnr(players.get(k));
+                }
+            }
+            if (word.length() > 2) {
+                words.get(players.indexOf(own.getOwnr())).add(word);
+            }
+            word = "";
+            for (Int pl : owner) {
+                pl.setNum(0);
+            }
+        }
+        return word;
     }
 }
